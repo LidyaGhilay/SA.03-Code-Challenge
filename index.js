@@ -1,102 +1,5 @@
 
 
-// document.addEventListener("DOMContentLoaded", () => {
-//   const URL = "http://localhost:3000";
-//   const urlfilms = `${URL}/films`;
-
-//   async function fetchFilmById(id) {
-//     const response = await fetch(`${urlfilms}/${id}`);
-//     if (!response.ok) {
-//       throw new Error(`Failed to fetch film with ID ${id}`);
-//     }
-//     return await response.json();
-//   }
-
-//   function updateFilmDetails(film) {
-//     // Implementation remains the same
-//   }
-
-//   async function fetchAndPopulateFilms() {
-//     try {
-//       const response = await fetch(urlfilms);
-//       if (!response.ok) {
-//         throw new Error("Failed to fetch films");
-//       }
-//       const movies = await response.json();
-//       const filmsList = document.getElementById("films");
-//       filmsList.innerHTML = ""; // Clear existing list
-
-//       movies.forEach((film) => {
-//         const mov = document.createElement("li");
-//         mov.classList.add("film", "item");
-//         mov.textContent = film.title;
-//         mov.addEventListener("click", async () => {
-//           try {
-//             const selectedFilm = await fetchFilmById(film.id);
-//             updateFilmDetails(selectedFilm);
-//           } catch (error) {
-//             console.error(error.message);
-//           }
-//         });
-//         filmsList.appendChild(mov);
-//       });
-//     } catch (error) {
-//       console.error(error.message);
-//     }
-//   }
-
-//   async function buyTicket(filmId) {
-//     try {
-//       const response = await fetch(`${urlfilms}/${filmId}`);
-//       if (!response.ok) {
-//         throw new Error(`Failed to fetch film with ID ${filmId}`);
-//       }
-//       const film = await response.json();
-//       if (film.tickets_sold === film.capacity) {
-//         alert("Sorry, this movie is sold out!");
-//         return;
-//       }
-//       const updatedTicketsSold = film.tickets_sold + 1;
-//       const patchResponse = await fetch(`${urlfilms}/${filmId}`, {
-//         method: "PATCH",
-//         headers: {
-//           "Content-Type": "application/json",
-//         },
-//         body: JSON.stringify({
-//           tickets_sold: updatedTicketsSold,
-//         }),
-//       });
-//       if (!patchResponse.ok) {
-//         throw new Error("Failed to update tickets sold");
-//       }
-//       await fetchAndPopulateFilms();
-//     } catch (error) {
-//       console.error(error.message);
-//     }
-//   }
-
-//   async function initialize() {
-//     try {
-//       const response = await fetch(`${urlfilms}/1`);
-//       if (!response.ok) {
-//         throw new Error("Failed to fetch initial film data");
-//       }
-//       const firstFilm = await response.json();
-//       updateFilmDetails(firstFilm);
-//       await fetchAndPopulateFilms();
-//     } catch (error) {
-//       console.error(error.message);
-//     }
-//   }
-
-//   document.getElementById("buy-ticket").addEventListener("click", async () => {
-//     const selectedFilmId = document.getElementById("title").dataset.filmId;
-//     await buyTicket(selectedFilmId);
-//   });
-
-//   initialize();
-// });
-
 document.addEventListener("DOMContentLoaded", () => {
   const URL = "http://localhost:3000";
   const urlfilms = `${URL}/films`;
@@ -111,7 +14,7 @@ document.addEventListener("DOMContentLoaded", () => {
     return data;
   }
 
-  // Update film details displayed on the webpage
+  
   function updateFilmDetails(film) {
     const poster = document.getElementById("poster");
     const title = document.getElementById("title");
@@ -189,7 +92,7 @@ document.addEventListener("DOMContentLoaded", () => {
       if (!patchResponse.ok) {
         throw new Error("Failed to update tickets sold");
       }
-      // Update ticket number displayed after purchasing a ticket
+      // Update ticket number displayed after buying a ticket
       const updatedFilm = await fetchFilmById(filmId);
       updateFilmDetails(updatedFilm);
     } catch (error) {
@@ -211,7 +114,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // Use event delegation to handle "Buy Ticket" button clicks
+
   document.addEventListener("click", async (event) => {
     if (event.target && event.target.id === "buy-ticket") {
       const selectedFilmId = document.getElementById("title").dataset.filmId;
