@@ -67,7 +67,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Function to handle buying a ticket
+   
   async function buyTicket(filmId) {
     try {
       const response = await fetch(`${urlfilms}/${filmId}`);
@@ -92,7 +92,7 @@ document.addEventListener("DOMContentLoaded", () => {
       if (!patchResponse.ok) {
         throw new Error("Failed to update tickets sold");
       }
-      // Update ticket number displayed after buying a ticket
+      
       const updatedFilm = await fetchFilmById(filmId);
       updateFilmDetails(updatedFilm);
     } catch (error) {
